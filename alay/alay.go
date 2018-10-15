@@ -3,6 +3,7 @@ package alay
 import (
 	"math/rand"
 	"strings"
+	"time"
 	"unicode"
 )
 
@@ -14,7 +15,9 @@ var m = map[rune]rune{
 }
 
 func ToAlayMapper(r rune) rune {
-	if i := rand.Intn(10); i == 0 {
+	rand.Seed(time.Now().UnixNano())
+	i := rand.Intn(2)
+	if i == 0 {
 		if v, ok := m[r]; ok {
 			return v
 		}
@@ -26,5 +29,5 @@ func ToAlayMapper(r rune) rune {
 
 //ToAlay is a function to translate string become alay language
 func ToAlay(s string) string {
-	return strings.Map(ToAlayMapper, s)
+	return strings.Map(ToAlayMapper, s) + "..."
 }
